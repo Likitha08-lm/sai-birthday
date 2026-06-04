@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Surprise ❤️</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#ffd6e7,#fff0f5);
+overflow-x:hidden;
+text-align:center;
+}
+
+.page{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.hidden{
+display:none;
+}
+
+h1{
+color:#ff2d75;
+margin-bottom:20px;
+}
+
+input{
+padding:12px;
+width:250px;
+border:none;
+border-radius:10px;
+font-size:18px;
+text-align:center;
+}
+
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:#ff4f8b;
+color:white;
+font-size:18px;
+cursor:pointer;
+margin-top:15px;
+}
+
+.gallery{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+}
+
+.gallery img{
+width:220px;
+height:280px;
+object-fit:cover;
+border-radius:20px;
+cursor:pointer;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.9);
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.popup img{
+max-width:90%;
+max-height:90%;
+border-radius:20px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:30px;
+font-size:50px;
+color:white;
+cursor:pointer;
+}
+
+.letter{
+background:white;
+padding:25px;
+border-radius:20px;
+max-width:700px;
+line-height:1.8;
+box-shadow:0 5px 20px rgba(0,0,0,.2);
+}
+
+.cake{
+font-size:120px;
+margin:20px;
+}
+
+</style>
+</head>
+
+<body>
+<audio id="music" loop>
+<source src="birthday_tune.mp3" type="audio/mpeg">
+</audio>
+<div class="page" id="loginPage">
+
+<h1>A Special Surprise Awaits ❤️</h1>
+
+<input
+type="password"
+id="code"
+placeholder="Enter Secret Code">
+
+<button onclick="unlock()">
+Unlock Surprise
+</button>
+
+<p id="error"></p>
+
+</div>
+<div class="page hidden" id="mainPage">
+
+<h1>🎉 Happy Birthday Sai Bharath ❤️</h1>
+
+<div class="cake">
+🎂
+</div>
+
+<button onclick="showWishPage()">
+Start Celebration 🎉
+</button>
+
+</div>
+<div class="page hidden" id="wishPage">
+
+<h1>✨ Make A Birthday Wish ✨</h1>
+
+<div style="font-size:120px;">
+🎂
+</div>
+
+<p style="font-size:22px;margin-top:20px;">
+Close your eyes and make a wish ❤️
+</p>
+
+<button onclick="showBlowPage()">
+I Made My Wish ✨
+</button>
+
+</div>
+<div class="page hidden" id="blowPage">
+
+<h1>🕯️ Blow The Candles 🕯️</h1>
+
+<div
+id="candles"
+style="font-size:70px;margin:30px;">
+🕯️ 🕯️ 🕯️ 🕯️ 🕯️
+</div>
+
+<button onclick="blowCandles()">
+💨 Blow Candles
+</button>
+
+</div>
+<div class="page hidden" id="photosPage">
+
+<h1>📸 Our Beautiful Memories ❤️</h1>
+
+<div class="gallery">
+
+<img src="photo1.jpeg"
+onclick="openImage(this.src)">
+
+<img src="photo2.jpeg"
+onclick="openImage(this.src)">
+
+<img src="photo3.jpeg"
+onclick="openImage(this.src)">
+
+</div>
+
+<br>
+
+<button onclick="showLetter()">
+Read My Letter 💌
+</button>
+
+</div>
+<div class="page hidden" id="letterPage">
+
+<h1>💝 For My Love 💝</h1>
+
+<div class="letter">
+
+Dear Moguds❤️,
+<br><br>
+
+Happy Birthday to My Love! 🎂
+<br><br>
+
+You are Sweet, Loyal, My rock, and I'm so grateful to have you in my life.
+<br><br>
+
+You bring so much warmth and sweetness into my life. Every moment with you is precious.
+<br><br>
+
+On your special day, I wish you all the happiness, love, and joy that you deserve. May this year bring you countless beautiful moments and wonderful memories.
+<br><br>
+
+Here's to celebrating you today and always! 🎉
+<br><br>
+
+With love and best wishes,
+<br><br>
+
+<b>From Your Pellams💝</b>
+<br><br>
+
+❤️ I Love You Moguds ❤️
+
+</div>
+
+</div>
+<div class="popup" id="popup">
+
+<span
+class="close"
+onclick="closeImage()">
+&times;
+</span>
+
+<img id="popupImg">
+
+</div>
+<script>
+
+function unlock(){
+
+let code=document.getElementById("code").value;
+
+if(code==="0506"){
+
+document.getElementById("loginPage").classList.add("hidden");
+
+document.getElementById("mainPage").classList.remove("hidden");
+
+document.getElementById("music").play();
+
+}
+else{
+
+document.getElementById("error").innerHTML=
+"Wrong Secret Code 💔";
+
+}
+
+}
+
+function showWishPage(){
+
+document.getElementById("mainPage").classList.add("hidden");
+
+document.getElementById("wishPage").classList.remove("hidden");
+
+}
+
+function showBlowPage(){
+
+document.getElementById("wishPage").classList.add("hidden");
+
+document.getElementById("blowPage").classList.remove("hidden");
+
+}
+
+function blowCandles(){
+
+document.getElementById("candles").innerHTML=
+"💨 💨 💨 💨 💨";
+
+confetti();
+
+setTimeout(function(){
+
+document.getElementById("blowPage").classList.add("hidden");
+
+document.getElementById("photosPage").classList.remove("hidden");
+
+},2500);
+
+}
+
+function showLetter(){
+
+document.getElementById("photosPage").classList.add("hidden");
+
+document.getElementById("letterPage").classList.remove("hidden");
+
+}
+
+function openImage(src){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupImg").src=src;
+
+}
+
+function closeImage(){
+
+document.getElementById("popup").style.display="none";
+
+}
+
+function confetti(){
+
+for(let i=0;i<100;i++){
+
+let c=document.createElement("div");
+
+c.innerHTML="🎉";
+
+c.style.position="fixed";
+
+c.style.left=Math.random()*100+"vw";
+
+c.style.top="-50px";
+
+c.style.fontSize="25px";
+
+document.body.appendChild(c);
+
+let y=0;
+
+let fall=setInterval(function(){
+
+y+=5;
+
+c.style.top=y+"px";
+
+if(y>window.innerHeight){
+
+clearInterval(fall);
+
+c.remove();
+
+}
+
+},20);
+
+}
+
+}
+
+setInterval(function(){
+
+let heart=document.createElement("div");
+
+heart.innerHTML=Math.random()>0.5?"💖":"💕";
+
+heart.style.position="fixed";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.bottom="-50px";
+
+heart.style.fontSize="25px";
+
+heart.style.pointerEvents="none";
+
+heart.style.zIndex="999";
+
+document.body.appendChild(heart);
+
+let pos=0;
+
+let move=setInterval(function(){
+
+pos+=2;
+
+heart.style.bottom=pos+"px";
+
+heart.style.opacity=1-(pos/800);
+
+if(pos>800){
+
+clearInterval(move);
+
+heart.remove();
+
+}
+
+},20);
+
+},500);
+
+</script>
+
+</body>
+</html>
